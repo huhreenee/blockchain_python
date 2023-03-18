@@ -1,6 +1,3 @@
-import os
-from OpenSSL import crypto
-
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
@@ -13,6 +10,5 @@ def keypair_gen():
 
     public_pem = public_key.public_bytes(encoding=serialization.Encoding.PEM,
                                          format=serialization.PublicFormat.SubjectPublicKeyInfo)
-    print(public_pem)
 
     return public_pem
