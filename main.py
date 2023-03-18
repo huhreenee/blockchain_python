@@ -13,10 +13,11 @@ MAX_TXNS = 2
 CURRENT_DIRECTORY = os.getcwd()
 ADMIN_INITIAL_BALANCE = 1000000
 ADMIN_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
+BLOCK_FILE_FOLDER = 'BlockFile'
 
 
 def store_blocks(blocks, account_holders):
-    block_path = os.path.join(CURRENT_DIRECTORY, 'block_file')
+    block_path = os.path.join(CURRENT_DIRECTORY, BLOCK_FILE_FOLDER)
     if not os.path.exists(block_path):
         os.mkdir(block_path)
     for block in blocks:
@@ -33,7 +34,7 @@ def store_blocks(blocks, account_holders):
 def retrieve_blocks():
     blockchain = Blockchain()
     account_holders = {}
-    block_path = os.path.join(CURRENT_DIRECTORY, 'block_file')
+    block_path = os.path.join(CURRENT_DIRECTORY, BLOCK_FILE_FOLDER)
     if not os.path.exists(block_path):
         return blockchain, account_holders
     for file in os.listdir(block_path):
