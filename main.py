@@ -11,7 +11,7 @@ from generate_rsa_keypair import keypair_gen
 
 MAX_TXNS = 2
 CURRENT_DIRECTORY = os.getcwd()
-ADMIN_INITIAL_BALANCE = 1000000
+ADMIN_INITIAL_BALANCE = 100000
 ADMIN_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
 BLOCK_FILE_FOLDER = 'BlockFile'
 
