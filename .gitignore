@@ -1,2 +1,6 @@
 BlockFile
 __pycache__
+cffi**
+crypt**
+pyc**
+_cffi**
