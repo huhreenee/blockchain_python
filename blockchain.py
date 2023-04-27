@@ -1,5 +1,6 @@
 import hashlib
 from block import Block
+from pymerkle import MerkleTree, verify_inclusion, verify_consistency
 
 START_PREV_HASH = "0000000000000000"
 
@@ -13,8 +14,8 @@ class Blockchain:
     def add_block(self, block):
         if not self.blocks:
             block.previousHash = START_PREV_HASH
+            block.merkleRootHash = self.generate_merkle_root_hash(block)
             block.hash = self.generate_hash(block)
-
         self.blocks.append(block)
 
     def get_next_block(self, transactions):
@@ -27,8 +28,8 @@ class Blockchain:
             block.previousHash = START_PREV_HASH
         else:
             block.previousHash = previous_block.hash
+        block.merkleRootHash = self.generate_merkle_root_hash(block)
         block.hash = self.generate_hash(block)
-
         return block
 
     def get_previous_block(self):
@@ -37,3 +38,6 @@ class Blockchain:
     def generate_hash(self, block):
         hash_key = hashlib.sha256(block.key().encode('utf-8')).hexdigest()
         return hash_key
+    def generate_merkle_root_hash(self, block):
+        tree = block.generate_merkle_tree()
+        return tree.root

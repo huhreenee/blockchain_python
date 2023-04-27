@@ -7,6 +7,7 @@ from block import Block
 from blockchain import Blockchain
 from transaction import Transaction
 from generate_rsa_keypair import keypair_gen
+from pymerkle import MerkleTree, verify_inclusion, verify_consistency
 
 
 MAX_TXNS = 2
@@ -161,9 +162,28 @@ def blockchain_handler():
     print_balance_sheet(blockchain, account_holders)
     store_blocks(blockchain.blocks, account_holders)
 
-
+def verification_handler():
+    print('==========================\nTransaction verification')
+    blockchain, account_holders = retrieve_blocks()
+    while True:
+        allow = input('Type y to proceed: ')
+        if allow != 'y':
+            break
+        txnHash = input('Transaction hash to verify: ')
+        finalResult = False
+        for block in blockchain.blocks:
+            tree = block.generate_merkle_tree()
+            try:
+                proof = tree.prove_inclusion(txnHash.encode('ASCII'))
+                verify_inclusion(txnHash.encode('ASCII'), block.merkleRootHash, proof)
+                finalResult = True
+                continue
+            except:
+                continue
+        print(finalResult)
 def __init__():
     blockchain_handler()
+    verification_handler()
 
 
 if __name__ == '__main__':
