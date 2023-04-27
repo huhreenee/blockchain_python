@@ -10,7 +10,7 @@ class Block:
         self.merkleRootHash = ""
 
     def key(self):
-        return f"{repr(self.transactions)}{str(self.index)}{str(self.previousHash)}{str(self.nonce)}"
+        return f"{repr(self.transactions)}{str(self.index)}{str(self.previousHash)}{str(self.nonce)}{str(self.merkleRootHash)}"
 
     def add_transaction(self, transaction):
         self.transactions.append(transaction)
